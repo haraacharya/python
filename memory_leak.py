@@ -13,32 +13,32 @@ def wait_for_process(command, search_text):
     output = p.stdout.read()
     #lineOutput = str( output, encoding='utf8' )
     lineOutput = str(output)
-    print (lineOutput)
-    #for line in p.stdout.readlines():
-        #print (line)
-        # output = output + tuple(line);
-        
+    #print (lineOutput)
+    for line in output:
+        print (line)
+        #output = output + tuple(line)
+	
     retval = p.wait()
     if retval == 0:
-		if search_text:
-			#if search_text in lineOutput.lower():
-			print ( lineOutput.lower())
-			if re.search(search_text, lineOutput.lower()):
-			    print ("%s TEST PASSED." % command)
-			    return (True, "MESG: %s TEST PASSED." % command)
-			else:
-				result = command + " :Test FAILED"
-				print (result)
-				return (False, "Couldn't find: %s"% search_text)
-		else:
-			result = command + ":command executed successfully"			
-			print (result)
-			return (True, result)
+        if search_text:
+        #if search_text in lineOutput.lower():
+            #print ( lineOutput.lower())
+            if re.search(search_text, lineOutput.lower()):
+                print ("%s TEST PASSED." % command)
+                return (True, "MESG: %s TEST PASSED." % command)
+            else:
+                result = command + " :Test FAILED"
+                print (result)
+                return (False, "Couldn't find: %s"% search_text)
+        else:
+            result = command + ":command executed successfully"			
+            print (result)
+            return (True, result)
     else:
         result = "ERROR: The Command " + command + " was not executed successfully"
         print (result)
         return (False, result)
-
+    
 
 
 if __name__ == "__main__":main()

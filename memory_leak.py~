@@ -10,26 +10,26 @@ def main():
 def wait_for_process(command, search_text):
     p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # output = ();
-    output = p.stdout.read()
+	output = p.stdout.read()
     #lineOutput = str( output, encoding='utf8' )
-    lineOutput = str(output)
-    print (lineOutput)
-    #for line in p.stdout.readlines():
-        #print (line)
-        # output = output + tuple(line);
+	lineOutput = str(output)
+	print (lineOutput)
+	for line in p.stdout.readlines():
+		print (line)
+		output = output + tuple(line)
         
-    retval = p.wait()
-    if retval == 0:
+	retval = p.wait()
+	if retval == 0:
 		if search_text:
 			#if search_text in lineOutput.lower():
-			print ( lineOutput.lower())
+			#print ( lineOutput.lower())
 			if re.search(search_text, lineOutput.lower()):
-			    print ("%s TEST PASSED." % command)
-			    return (True, "MESG: %s TEST PASSED." % command)
+				print ("%s TEST PASSED." % command)
+				return (True, "MESG: %s TEST PASSED." % command)
 			else:
-				result = command + " :Test FAILED"			    
+				result = command + " :Test FAILED"
 				print (result)
-			    return (False, "Couldn't find: %s"% search_text)
+				return (False, "Couldn't find: %s"% search_text)
 		else:
 			result = command + ":command executed successfully"			
 			print (result)
